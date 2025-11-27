@@ -134,3 +134,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Cloned service repositories (managed separately)
+Hotel-back-management/
+Hotel-back-user/
+Hotel-front-management/
+Hotel-front-user/
