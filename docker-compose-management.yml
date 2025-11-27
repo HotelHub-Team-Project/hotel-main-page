@@ -2,7 +2,7 @@ services:
   # Management Frontend Service
   frontend-management:
     build:
-      context: ./Hotel-front-management
+      context: ./hotel-management/frontend
       dockerfile: Dockerfile
     container_name: hotel-frontend-management
     ports:
@@ -18,7 +18,7 @@ services:
   # Management Backend Service
   backend-management:
     build:
-      context: ./Hotel-back-management
+      context: ./hotel-management/backend
       dockerfile: Dockerfile
     container_name: hotel-backend-management
     ports:
@@ -27,7 +27,7 @@ services:
       - NODE_ENV=production
       - PORT=8080
     env_file:
-      - ./Hotel-back-management/.env
+      - ./hotel-management/backend/.env
     networks:
       - hotel-management-network
     restart: unless-stopped

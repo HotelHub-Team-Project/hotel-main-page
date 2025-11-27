@@ -136,7 +136,5 @@ dist
 .pnp.*
 
 # Cloned service repositories (managed separately)
-Hotel-back-management/
-Hotel-back-user/
-Hotel-front-management/
-Hotel-front-user/
+hotel-user/
+hotel-management/

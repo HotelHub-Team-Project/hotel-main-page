@@ -2,7 +2,7 @@ services:
   # User Frontend Service
   frontend-user:
     build:
-      context: ./Hotel-front-user
+      context: ./hotel-user/frontend
       dockerfile: Dockerfile
     container_name: hotel-frontend-user
     ports:
@@ -18,7 +18,7 @@ services:
   # User Backend Service
   backend-user:
     build:
-      context: ./Hotel-back-user
+      context: ./hotel-user/backend
       dockerfile: Dockerfile
     container_name: hotel-backend-user
     ports:
@@ -27,7 +27,7 @@ services:
       - NODE_ENV=production
       - PORT=8080
     env_file:
-      - ./Hotel-back-user/.env
+      - ./hotel-user/backend/.env
     networks:
       - hotel-user-network
     restart: unless-stopped
