@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: hotel-frontend-user
     ports:
-      - "3000:3000"
+      - "3000:80"
     environment:
       - NODE_ENV=production
     depends_on:
