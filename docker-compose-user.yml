@@ -1,25 +1,4 @@
 services:
-  # MongoDB Service
-  mongodb-user:
-    image: mongo:7-jammy
-    container_name: hotel-mongodb-user
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=1234
-      - MONGO_INITDB_DATABASE=hotel-project
-    volumes:
-      - mongodb-user-data:/data/db
-    networks:
-      - hotel-user-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # User Frontend Service
   frontend-user:
     build:
@@ -49,9 +28,6 @@ services:
       - PORT=8080
     env_file:
       - ./hotel-user/backend/.env
-    depends_on:
-      mongodb-user:
-        condition: service_healthy
     networks:
       - hotel-user-network
     restart: unless-stopped
@@ -59,7 +35,3 @@ services:
 networks:
   hotel-user-network:
     driver: bridge
-
-volumes:
-  mongodb-user-data:
-    driver: local
