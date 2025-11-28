@@ -1,4 +1,25 @@
 services:
+  # MongoDB Service
+  mongodb-management:
+    image: mongo:7-jammy
+    container_name: hotel-mongodb-management
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=1234
+      - MONGO_INITDB_DATABASE=hotel-project
+    volumes:
+      - mongodb-management-data:/data/db
+    networks:
+      - hotel-management-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # Management Frontend Service
   frontend-management:
     build:
@@ -28,6 +49,9 @@ services:
       - PORT=8080
     env_file:
       - ./hotel-management/backend/.env
+    depends_on:
+      mongodb-management:
+        condition: service_healthy
     networks:
       - hotel-management-network
     restart: unless-stopped
@@ -35,3 +59,7 @@ services:
 networks:
   hotel-management-network:
     driver: bridge
+
+volumes:
+  mongodb-management-data:
+    driver: local
